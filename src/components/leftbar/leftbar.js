@@ -3,56 +3,91 @@ import '../leftbar/leftbar.css';
 import { useEffect } from 'react';
 
 
-export default function Leftbar({ states, state, setState }) {
+
+export default function Leftbar({ count, setCount, state, setState }) {
 
     // console.log(state)
 
-    useEffect(() => {
-        setState(
-            state.map(d => {
-                return {
-                    checked: "false",
-                    countryCode: d.countryCode,
-                    isoCode: d.isoCode,
-                    latitude: d.latitude,
-                    longitude: d.longitude,
-                    name: d.name
+    // useEffect(() => {
+    //     setState(
+    //         states.map(d => {
+    //             return {
+    //                 isChecked: "false",
+    //                 countryCode: d.countryCode,
+    //                 isoCode: d.isoCode,
+    //                 latitude: d.latitude,
+    //                 longitude: d.longitude,
+    //                 name: d.name
+    //             }
+    //         })
+    //     )
+    // }, [])
+
+
+
+    const handleChecked = (e) => {
+        const { name, checked } = e.target;
+        if (name === "allSelect") {
+            let tempState = state.map((item) => {
+                return { ...item, isChecked: checked };
+            });
+            setState(tempState);
+            setCount(29);
+        } else {
+            let tempState = state.map((item) =>
+                item.name === name ? { ...item, isChecked: checked } : item
+            );
+            setState(tempState);
+            tempState.forEach(item => {
+                for (let i = 0; i < item.length; i++) {
+
                 }
             })
-        )
-    }, [])
-
-
-    function handleAllChecked(e) {
-        console.log(e.target.value);
-    }
-
-    function handleChecked(e) {
-        let check = e.target.value.checked;
-        if (check == false) {
 
         }
+    };
 
-    }
+
 
     return (
-        <div>
-            <h1>States</h1>
-            <input
-                type="checkbox"
-                value={states}
-                onClick={handleAllChecked}
-                value="checkedall"
-            />Check / Uncheck All
-            {
-                states.map(name => (
-                    <div key={name.isoCode}>
-                        <input type='checkbox' value={name} onChange={handleChecked} />
-                        <span>{name.isoCode}</span>
+        <div className='leftbar'>
+            <form className="form">
+                <h1>States</h1>
+                <input
+                    type="checkbox"
+                    name="allSelect"
+                    // checked={
+                    //   users.filter((user) => user?.isChecked !== true).length < 1
+                    // }
+                    checked={!state.some((item) => item?.isChecked !== true)}
+                    onChange={handleChecked}
+                />
+                <label>Select All</label>
+                {state.map((item) => (
+                    <div>
+                        <input
+                            type="checkbox"
+                            name={item.name}
+                            checked={item?.isChecked || false}
+                            onChange={handleChecked}
+                        />
+                        <label>{item.isoCode}</label>
                     </div>
-                ))
-            }
+                ))}
+            </form>
 
-        </div>
+            {/* // states.map(item => 
+                //     return (
+                        // <div key={item.isoCode}>
+                        //     <input type='checkbox' value={item} onChange={handleChecked} />
+                        //     <span>{item.isoCode}</span>
+                        // </div>
+                        
+                //     )
+                // ) */}
+
+
+
+        </div >
     )
 }

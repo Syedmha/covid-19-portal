@@ -1,1 +1,10 @@
 
+.App{
+    margin-top: 0;
+}
+
+.flex-container{
+   display: flex;
+   flex-direction: row;
+}
+

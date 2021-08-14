@@ -7,7 +7,7 @@ export default function Header({ date, setDate }) {
 
 
     return (
-        <div>
+        <div className='header'>
             <h1>Covid-19 Report</h1>
             <DatePicker selected={date} onChange={(date) => setDate(date)} />
         </div>

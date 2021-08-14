@@ -1,0 +1,12 @@
+.main{
+    background-color: beige;
+    width: 80%;
+}
+
+.inner{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+}
