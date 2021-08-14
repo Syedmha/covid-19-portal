@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
+import { Country, State, City } from 'country-state-city';
 import './App.css';
+import Header from './components/header/header';
+import Leftbar from './components/leftbar/leftbar';
+import Maincomp from './components/maincomp/maincomp';
+import { fetchData } from './api/api';
+
 
 function App() {
+  let states = State.getStatesOfCountry('IN');
+
+  const [date, setDate] = useState(new Date());
+  const [state, setState] = useState(states);
+
+  useEffect(async () => {
+    const data = await fetchData().then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });;
+
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header date={date} setDate={setDate} />
+      <Leftbar states={states} state={state} setState={setState} />
+      <Maincomp />
     </div>
   );
 }
