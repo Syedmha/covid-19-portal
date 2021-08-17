@@ -38,11 +38,10 @@ export default function Leftbar({ count, setCount, state, setState }) {
                 item.name === name ? { ...item, isChecked: checked } : item
             );
             setState(tempState);
-            tempState.forEach(item => {
-                for (let i = 0; i < item.length; i++) {
 
-                }
-            })
+            let kk = Object.keys(tempState).length;
+            console.log(kk);
+
 
         }
     };
